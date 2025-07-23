@@ -1,0 +1,35 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(255)
+  email        String        @unique @db.VarChar(255)
+  password     String        @db.VarChar(255)
+  isVIP        Boolean       @default(false) @db.Boolean
+  reservations Reservation[]
+}
+
+model Room {
+  id           Int           @id @default(autoincrement())
+  number       Int           @unique @db.Integer()
+  reservations Reservation[]
+}
+
+model Reservation {
+  id            Int      @id @default(autoincrement())
+  startDate     DateTime @db.Date
+  endDate       DateTime @db.Date
+  user          User     @relation(fields: [user_id], references: [id])
+  user_id       Int
+  IsBookedByVIP Boolean  @default(false) @db.Boolean
+  room          Room     @relation(fields: [room_id], references: [id])
+  room_id       Int
+}

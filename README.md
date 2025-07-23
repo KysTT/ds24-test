@@ -71,3 +71,102 @@
 
    - Приложение доступно на `http://localhost:3000`
    - Postgres на `localhost:5432`
+
+## Testing Endpoints
+
+Для проверки API можно использовать Postman или curl. Ниже список основных маршрутов:
+
+### Пользователи
+
+- **Регистрация**
+
+  - **Метод**: POST
+  - **URL**: `/api/user/register`
+  - **Body (JSON)**:
+
+    ```json
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "P@ssw0rd"
+    }
+    ```
+
+- **Логин**
+
+  - **Метод**: POST
+  - **URL**: `/api/user/login`
+  - **Body (JSON)**:
+
+    ```json
+    {
+      "email": "john@example.com",
+      "password": "P@ssw0rd"
+    }
+    ```
+
+- **Получить пользователя по ID**
+
+  - **Метод**: GET
+  - **URL**: `/api/user/{id}`
+  - **Пример**: `/api/user/1`
+
+### Номера отеля и бронирования
+
+- **Список всех номеров**
+
+  - **Метод**: GET
+  - **URL**: `/api/hotel/rooms`
+
+- **Создать номер**
+
+  - **Метод**: POST
+  - **URL**: `/api/hotel/createRoom`
+  - **Body (JSON)**:
+
+    ```json
+    {
+      "roomNumber": 101
+    }
+    ```
+
+- **Свободные номера за период**
+
+  - **Метод**: GET
+  - **URL**: `/api/hotel/roomsPeriod`
+  - **Body (JSON)**:
+
+    ```json
+    {
+      "startDate": "2025-07-23",
+      "endDate": "2025-07-25"
+    }
+    ```
+
+- **Забронировать номер**
+
+  - **Метод**: POST
+  - **URL**: `/api/hotel/makeReservation`
+  - **Body (JSON)**:
+
+    ```json
+    {
+      "user_id": 1,
+      "roomNumber": 101,
+      "startDate": "2025-07-23",
+      "endDate": "2025-07-25"
+    }
+    ```
+
+- **Отменить бронь**
+
+  - **Метод**: POST
+  - **URL**: `/api/hotel/revokeReservation`
+  - **Body (JSON)**:
+
+    ```json
+    {
+      "user_id": 1,
+      "roomNumber": 101
+    }
+    ```
